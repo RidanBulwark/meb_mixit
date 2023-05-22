@@ -46,8 +46,12 @@ INSTALLED_APPS = [
     'recipe'
 ]
 
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080"
+    "http://localhost:8080",
+    "http://localhost:3500"
 ]
 
 MIDDLEWARE = [
