@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar is-dark">
     <div class="navbar-brand">
-      <router-link to="/" class="navbar-item">
+      <router-link to="/home" class="navbar-item">
         <strong>MixIT</strong>
       </router-link>
 
@@ -15,13 +15,12 @@
     <div class="navbar-menu" id="navbar-menu" v-bind:class="{'is-active':showMobileMenu}">  
       
       <div class="navbar-end">
-        <router-link to="/cooking" class="navbar-item">Cooking</router-link>
-        <router-link to="/baking" class="navbar-item">Baking</router-link>
+        <router-link to="/recipes" class="navbar-item">Recipes</router-link>
       </div>
 
       <div class="navbar-item">
         <div class="buttons">
-          <router-link to="/login" class="button is-light">Login</router-link>
+          <router-link to="/log-in" class="button is-light">Login</router-link>
           <router-link to="/sign-up" class="button is-light">Sign up</router-link>
           <router-link to="/recipes" class="button is-light">My recipes</router-link>
         </div>
@@ -39,9 +38,41 @@
 </template>
 
 <script>
-export default{
-  data(){
-    return {showMobileMenu: false}
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      showMobileMenu: false,
+      cart: {
+        items: []
+      }
+    }
+  },
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+
+    const token = this.$store.state.token
+
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = "Token " + token
+    } else {
+        axios.defaults.headers.common['Authorization'] = ""
+    }
+  },
+  mounted() {
+    this.cart = this.$store.state.cart
+  },
+  computed: {
+      cartTotalLength() {
+          let totalLength = 0
+
+          for (let i = 0; i < this.cart.items.length; i++) {
+              totalLength += this.cart.items[i].quantity
+          }
+
+          return totalLength
+      }
   }
 }
 </script>

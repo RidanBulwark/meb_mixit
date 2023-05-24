@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import Recipes from '../views/Recipes.vue'
 import SignUp from '../views/SignUp.vue'
 import Login from '../views/Login.vue'
 
+import Recipe1 from '../components/Recipe1.vue'
+
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: '/home',
+    name: 'HomeView',
     component: HomeView
   },
   {
@@ -18,6 +21,16 @@ const routes = [
     path: '/log-in',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/recipes',
+    name: 'Recipes',
+    component: Recipes
+  },
+  {
+    path: '/recipe1',
+    name: 'Recipe1',
+    component: Recipe1
   },
   {
     path: '/about',
